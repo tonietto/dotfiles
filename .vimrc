@@ -328,12 +328,6 @@ nmap <silent> <C-j> <Plug>(ale_next_wrap)
 " disable highlight colors
 let g:ale_set_highlights = 0
 " }}}
-" BetterComments {{{
-hi! def link TodoBetterComments Todo
-hi! def link ErrorBetterComments Error
-hi! def link StrikeoutBetterComments String " fix python docstring comments
-let g:bettercomments_skipped = ['html']
-" }}}
 " CtrlP {{{
  let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
 " }}}
@@ -451,6 +445,12 @@ nnoremap <silent> <space>op  :<C-u>CocListResume<CR>
 
 " Use K to show documentation in preview window
 nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+" To open coc-explorer
+nmap <leader>e :CocCommand explorer<CR>
+
+"Reveal to current buffer for closest coc-explorer
+nnoremap <Leader>er :call CocAction('runCommand', 'explorer.doAction', 'closest', ['reveal:0'], [['relative', 0, 'file']])<CR>
 " }}}
 " Emmet {{{
 let g:user_emmet_leader_key='<C-E>' " c-e-,

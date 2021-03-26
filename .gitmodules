@@ -115,6 +115,3 @@
 [submodule ".zsh-plugins/zsh-vi-mode"]
 	path = .zsh-plugins/zsh-vi-mode
 	url = git@github.com:jeffreytse/zsh-vi-mode.git
-[submodule ".vim/pack/plugins/start/vim-devicons"]
-	path = .vim/pack/plugins/start/vim-devicons
-	url = git@github.com:ryanoasis/vim-devicons.git
