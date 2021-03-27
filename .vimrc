@@ -288,6 +288,12 @@ let @k="V:s#src/##gV:s/\.js\//gz/z/"
 let g:netrw_banner = 0
 let g:netrw_liststyle = 3
 " }}}
+" Panes {{{
+nmap <C-h> <C-w>h
+nmap <C-j> <C-w>j
+nmap <C-k> <C-w>k
+nmap <C-l> <C-w>l
+" }}}
 " Search {{{
 " control search highlight
 nnoremap s\ :set hlsearch<CR>
@@ -446,11 +452,30 @@ nnoremap <silent> <space>op  :<C-u>CocListResume<CR>
 " Use K to show documentation in preview window
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 
-" To open coc-explorer
-nmap <leader>e :CocCommand explorer<CR>
+" Explorer
+let g:coc_explorer_global_presets = {
+\   '.vim': {
+\     'root-uri': '~/.vim',
+\   },
+\   'tab': {
+\     'position': 'tab',
+\     'quit-on-open': v:true,
+\   },
+\   'simplify': {
+\     'file-child-template': '[selection | clip | 1] [indent][icon | 1] [filename omitCenter 1]'
+\   }
+\ }
 
-"Reveal to current buffer for closest coc-explorer
-nnoremap <Leader>er :call CocAction('runCommand', 'explorer.doAction', 'closest', ['reveal:0'], [['relative', 0, 'file']])<CR>
+nmap <space>e :CocCommand explorer<CR>
+autocmd BufEnter * if (winnr("$") == 1 && &filetype == 'coc-explorer') | q | endif
+
+" Show file name when moving cursor over on coc-explorer
+function! s:ShowFilename()
+    let s:node_info = CocAction('runCommand', 'explorer.getNodeInfo', 0)
+    redraw | echohl Debug | echom exists('s:node_info.fullpath') ?
+    \ 'CoC Explorer: ' . s:node_info.fullpath : '' | echohl None
+endfunction
+autocmd CursorMoved \[coc-explorer\]* :call <SID>ShowFilename()
 " }}}
 " Emmet {{{
 let g:user_emmet_leader_key='<C-E>' " c-e-,
