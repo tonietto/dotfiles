@@ -3,21 +3,23 @@
   "tslint.autoFixOnSave": true,
   "tsserver.npm": "/usr/local/bin/npm",
   "explorer.width": 40,
-  "explorer.git.enable": false,
+  "explorer.git.enable": true,
   "explorer.file.autoReveal": true,
   "explorer.icon.enableNerdfont": true,
   "explorer.previewAction.onHover": false,
   "explorer.icon.enableVimDevicons": true,
   "explorer.buffer.root.template": "[icon & 1] BUFFER",
+  "explorer.sources": [
+    { "name": "buffer", "expand": true },
+    { "name": "file", "expand": true }
+  ],
   "explorer.file.root.template": "[icon & 1] PROJECT ([root])",
   "explorer.keyMappings.global": {
     "cw": "rename",
     "yy": "copyFile",
     "Y": "copyFile",
-    "dd": "delete",
     "D": "delete",
     "to": "addFile",
     "mk": "addDirectory"
   }
-
 }

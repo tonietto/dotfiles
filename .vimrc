@@ -47,8 +47,9 @@ let g:vimwiki_ext2syntax = {'.Rmd': 'markdown', '.rmd': 'markdown','.md': 'markd
 " Make calcurse notes markdown compatible:
 autocmd BufRead,BufNewFile /tmp/calcurse*,~/.calcurse/notes/* set filetype=markdown
 
-" Readmes autowrap text:
-autocmd BufRead,BufNewFile *.md set tw=79
+" Readmes and TADS3 files autowrap text:
+autocmd BufRead,BufNewFile *.md set tw=99
+autocmd BufRead,BufNewFile *.t set tw=99
 
 " Get line, word and character counts with F3:
 map <F3> :!wc %<CR>
@@ -201,7 +202,7 @@ nnoremap n/ :set nonumber norelativenumber<CR>
 " Show vertical line
 augroup ColorcolumnOnlyInInsertMode
   autocmd!
-  autocmd InsertEnter * setlocal colorcolumn=80
+  autocmd InsertEnter * setlocal colorcolumn=100
   autocmd InsertLeave * setlocal colorcolumn=0
 augroup END
 
@@ -466,8 +467,11 @@ let g:coc_explorer_global_presets = {
 \   }
 \ }
 
+" Open coc-explorer
 nmap <space>e :CocCommand explorer<CR>
-autocmd BufEnter * if (winnr("$") == 1 && &filetype == 'coc-explorer') | q | endif
+
+" Auto close coc-explorer when the buffer is empty of files
+" autocmd BufEnter * if (winnr("$") == 1 && &filetype == 'coc-explorer') | q | endif
 
 " Show file name when moving cursor over on coc-explorer
 function! s:ShowFilename()
