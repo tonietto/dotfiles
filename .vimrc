@@ -230,7 +230,43 @@ highlight SpellBad      ctermfg=Red         term=Reverse        guisp=Red gui=un
 highlight SpellCap      ctermfg=Green       term=Reverse        guisp=Green gui=undercurl   ctermbg=Black
 highlight SpellLocal    ctermfg=Cyan        term=Underline      guisp=Cyan gui=undercurl   ctermbg=Black
 highlight SpellRare     ctermfg=Magenta     term=underline      guisp=Magenta gui=undercurl   ctermbg=Black
+
+" Indicate if file is modified or saved on stausline filename
+set laststatus=2
+set statusline=[%n]\ %<%f%h\ %m
 " }}}
+" Better wrapping {{{
+let s:wrapenabled = 0
+function! ToggleWrap()
+  if s:wrapenabled
+    set nowrap nolist
+    set nolinebreak
+    unmap j
+    unmap k
+    unmap 0
+    unmap ^
+    unmap $
+    let s:wrapenabled = 0
+    echom "Wrap disabled"
+  else
+    set wrap nolist
+    set linebreak
+    nnoremap j gj
+    nnoremap k gk
+    nnoremap 0 g0
+    nnoremap ^ g^
+    nnoremap $ g$
+    vnoremap j gj
+    vnoremap k gk
+    vnoremap 0 g0
+    vnoremap ^ g^
+    vnoremap $ g$
+    let s:wrapenabled = 1
+    echom "Wrap enabled"
+  endif
+endfunction
+map <leader>w :call ToggleWrap()<CR>
+"}}}
 "Colors {{{
 " General
 syntax enable
@@ -238,8 +274,30 @@ set t_Co=256
 
 " Color scheme
 let g:enable_bold_font = 1
-set background:dark
-colorscheme dracula
+
+" ChangeBackground changes the background mode based on macOS's `Appearance`
+" setting. We also refresh the statusline colors to reflect the new mode.
+function! ChangeBackground()
+  if system("defaults read -g AppleInterfaceStyle") =~ '^Dark'
+    set background=dark   " for the dark version of the theme
+    colorscheme dracula
+  else
+    set background=light  " for the light version of the theme
+    colorscheme solarized
+  endif
+
+
+  try
+    execute "AirlineRefresh"
+  catch
+  endtry
+endfunction
+
+" initialize the colorscheme for the first run
+call ChangeBackground()
+
+" change the color scheme if we receive a SigUSR1
+autocmd SigUSR1 * call ChangeBackground()
 
 " fix dracula Pmenu (https://github.com/dracula/vim/issues/14)
 hi Pmenu ctermfg=NONE ctermbg=236 cterm=NONE guifg=NONE guibg=#64666d gui=NONE
@@ -248,6 +306,10 @@ hi PmenuSel ctermfg=NONE ctermbg=24 cterm=NONE guifg=NONE guibg=#204a87 gui=NONE
 hi Visual term=reverse cterm=reverse guibg=Grey
 " Search selection colors
 hi Search ctermbg=yellow ctermfg=black
+" }}}
+"Cool shortcuts {{{
+" General
+noremap <F5> :%y+<CR>
 " }}}
 " IdleHighlight {{{
 " Highlight all instances of word under cursor, when idle.
@@ -552,6 +614,30 @@ nnoremap <Leader>h :Rooter<CR>
 " }}}
 " Startify {{{
 let g:startify_custom_header = []
+" returns all modified files of the current git repo
+" `2>/dev/null` makes the command fail quietly, so that when we are not
+" in a git repo, the list will be empty
+function! s:gitModified()
+    let files = systemlist('git ls-files -m 2>/dev/null')
+    return map(files, "{'line': v:val, 'path': v:val}")
+endfunction
+
+" same as above, but show untracked files, honouring .gitignore
+function! s:gitUntracked()
+    let files = systemlist('git ls-files -o --exclude-standard 2>/dev/null')
+    return map(files, "{'line': v:val, 'path': v:val}")
+endfunction
+
+let g:startify_lists = [
+        \ { 'type': 'files',     'header': ['   MRU']            },
+        \ { 'type': 'dir',       'header': ['   MRU '. getcwd()] },
+        \ { 'type': 'sessions',  'header': ['   Sessions']       },
+        \ { 'type': 'bookmarks', 'header': ['   Bookmarks']      },
+        \ { 'type': function('s:gitModified'),  'header': ['   Git modified']},
+        \ { 'type': function('s:gitUntracked'), 'header': ['   Git untracked']},
+        \ { 'type': 'commands',  'header': ['   Commands']       },
+	\ ]
+
 nnoremap <Leader>s :Startify<CR>
 " }}}
 " gitgutter {{{
