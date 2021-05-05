@@ -118,3 +118,12 @@
 [submodule ".vim/pack/plugins/start/vim-devicons"]
 	path = .vim/pack/plugins/start/vim-devicons
 	url = git@github.com:ryanoasis/vim-devicons.git
+[submodule ".vim/pack/plugins/start/ayu-vim"]
+	path = .vim/pack/plugins/start/ayu-vim
+	url = git@github.com:ayu-theme/ayu-vim.git
+[submodule ".vim/pack/plugins/vim-colors-solarized"]
+	path = .vim/pack/plugins/vim-colors-solarized
+	url = git://github.com/altercation/vim-colors-solarized.git
+[submodule ".vim/pack/plugins/opt/goyo.vim"]
+	path = .vim/pack/plugins/opt/goyo.vim
+	url = git@github.com:junegunn/goyo.vim.git
