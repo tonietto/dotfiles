@@ -5,6 +5,8 @@
 # /___|___/_| |_|_|  \___|
 #
 
+zmodload zsh/zprof
+
 # german locale fix
 export LC_ALL=en_US.UTF-8
 
@@ -16,17 +18,20 @@ source ~/.shortcuts
 source ~/.zsh-plugins/aliases
 source ~/.zsh-plugins/zsh-vi-mode/zsh-vi-mode.plugin.zsh
 
+# Themify prompt
+autoload -U colors && colors
+zstyle ':vcs_info:*' enable git
+zstyle ':vcs_info:*' check-for-changes true
+zstyle ':vcs_info:*' unstagedstr '!'
+zstyle ':vcs_info:*' stagedstr '+'
+zstyle ':vcs_info:git*' formats "%{${fg[cyan]}%}[%{${fg[blue]}%}%b%{${fg[yellow]}%}%m%u%c%{${fg[cyan]}%}]%{$reset_color%}"
+grml_theme_add_token arrow '❯ '
+zstyle ':prompt:grml:left:setup' items rc change-root path vcs newline arrow
 zstyle ':prompt:grml:right:setup' items
 
 # vim mode config
 ZVM_INSERT_MODE_CURSOR=$ZVM_CURSOR_BLOCK
 ZVM_NORMAL_MODE_CURSOR=$ZVM_CURSOR_BLINKING_UNDERLINE
-
-# lazy loaded zsh nvm
-export NVM_LAZY_LOAD=true
-export NVM_COMPLETION=true
-export NVM_LAZY_LOAD_EXTRA_COMMANDS=('vim' 'nvim' 'gh' 'git' 'tig' 'npf')
-source ~/.zsh-plugins/zsh-nvm/zsh-nvm.plugin.zsh
 
 # cache eval
 source ~/.zsh-plugins/evalcache.plugin.zsh
@@ -47,9 +52,6 @@ zvm_after_init_commands+=('[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh')
 # Prevent shell from exiting with C-d
 setopt ignoreeof
 
-# startship
-_evalcache starship init zsh
-
 # measure zsh load time
 timezsh() {
   shell=${1-$SHELL}
@@ -58,3 +60,9 @@ timezsh() {
 
 # yarn
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+
+# one-pass
+eval "$(op completion zsh)"; compdef _op op
+
+# lazy loaded zsh nvm
+source ~/.zsh-plugins/zsh-nvm/zsh-nvm.plugin.zsh

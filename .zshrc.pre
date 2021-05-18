@@ -14,3 +14,6 @@ export PAGER="less"
 export READER="zathura"
 export NNN_USE_EDITOR=1
 export GOPATH="$HOME/go"
+export NVM_LAZY_LOAD=true
+export NVM_COMPLETION=true
+export NVM_LAZY_LOAD_EXTRA_COMMANDS=('vim' 'nvim' 'gh' 'tig' 'npf')
