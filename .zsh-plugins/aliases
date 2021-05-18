@@ -274,5 +274,9 @@ alias tkill='tmux kill-session -t'
 alias tlay='tmux-layout'
 alias mux='tmuxinator'
 #}}}
+# 1Password {{{
+oppass() {op get item $1 --fields password --vault $2}
+oppasscp() {op get item $1 --fields password --vault $2 | pbcopy}
+#}}}
 
 # vim:foldmethod=marker:foldlevel=0:syntax=zsh
