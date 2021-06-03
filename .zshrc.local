@@ -13,12 +13,12 @@ export LC_ALL=en_US.UTF-8
 # python (macos fix)
 alias python='python3'
 
-# Load custom files
+# load custom files
 source ~/.shortcuts
 source ~/.zsh-plugins/aliases
 source ~/.zsh-plugins/zsh-vi-mode/zsh-vi-mode.plugin.zsh
 
-# Themify prompt
+# themify prompt
 autoload -U colors && colors
 zstyle ':vcs_info:*' enable git
 zstyle ':vcs_info:*' check-for-changes true
@@ -42,14 +42,14 @@ export TERM=xterm-256color
 # fasd
 _evalcache fasd --init auto
 
-# Setting fd as the default source for fzf
+# setting fd as the default source for fzf
 export FZF_DEFAULT_COMMAND='(git ls-tree -r --name-only HEAD || fd --type f --follow --exclude .git,node_modules)'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
 # fzf init; accordingly to https://github.com/jeffreytse/zsh-vi-mode/issues/4
 zvm_after_init_commands+=('[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh')
 
-# Prevent shell from exiting with C-d
+# prevent shell from exiting with C-d
 setopt ignoreeof
 
 # measure zsh load time
