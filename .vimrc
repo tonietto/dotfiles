@@ -531,6 +531,7 @@ let g:coc_explorer_global_presets = {
 
 " Open coc-explorer
 nmap <space>e :CocCommand explorer<CR>
+nmap <space>E :CocCommand explorer --width 50<CR>
 
 " Auto close coc-explorer when the buffer is empty of files
 " autocmd BufEnter * if (winnr("$") == 1 && &filetype == 'coc-explorer') | q | endif
