@@ -79,9 +79,6 @@
 [submodule ".vim/pack/plugins/start/vim-polyglot"]
 	path = .vim/pack/plugins/start/vim-polyglot
 	url = git@github.com:sheerun/vim-polyglot.git
-[submodule ".vim/pack/plugins/start/vim-prettier"]
-	path = .vim/pack/plugins/start/vim-prettier
-	url = git@github.com:prettier/vim-prettier.git
 [submodule ".vim/pack/plugins/start/vim-rooter"]
 	path = .vim/pack/plugins/start/vim-rooter
 	url = git@github.com:airblade/vim-rooter.git
