@@ -124,3 +124,12 @@
 [submodule ".vim/pack/plugins/opt/goyo.vim"]
 	path = .vim/pack/plugins/opt/goyo.vim
 	url = git@github.com:junegunn/goyo.vim.git
+[submodule ".vim/pack/plugins/opt/vitality.vim"]
+	path = .vim/pack/plugins/opt/vitality.vim
+	url = https://github.com/sjl/vitality.vim.git
+[submodule ".vim/pack/plugins/start/vitality.vim"]
+	path = .vim/pack/plugins/start/vitality.vim
+	url = https://github.com/sjl/vitality.vim.git
+[submodule "/Users/gustavotonietto/.vim/pack/plugins/start/github.vim.git"]
+	path = /Users/gustavotonietto/.vim/pack/plugins/start/github.vim.git
+	url = git@github.com:1612492/github.vim.git
