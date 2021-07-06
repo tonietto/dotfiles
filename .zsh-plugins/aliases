@@ -85,7 +85,7 @@ fbr() {
   branches=$(git for-each-ref --count=30 --sort=-committerdate refs/heads/ --format="%(refname:short)") &&
   branch=$(echo "$branches" |
   fzf-tmux -d $(( 2 + $(wc -l <<< "$branches")  )) +m) &&
-  git checkout $(echo "$branch" | sed "s/.* //" | sed "s#remotes/[^/]*/##")
+  git switch $(echo "$branch" | sed "s/.* //" | sed "s#remotes/[^/]*/##")
 }
 function cd() {
     if [[ "$#" != 0 ]]; then
@@ -178,6 +178,13 @@ alias prs='gh pr checkout $(set -- $(gh pr list | fzf) && echo $1 | tr -d \#)'
 alias pro='gh pr show $(set -- $(gh pr list | fzf) && echo $1 | tr -d \#)'
 #}}}
 # Git {{{
+# Determine if the main Git branch is "master" or "main". (Assumes it's one of those two.)
+# https://stackoverflow.com/a/66622363/6962
+# https://github.com/henrik/dotfiles/blob/master/bash/aliases.sh
+function git_main_branch {
+  [ -f "$(git rev-parse --show-toplevel)/.git/refs/heads/master" ] && echo "master" || echo "main"
+}
+
 alias pushup='git push --set-upstream origin $(git rev-parse --abbrev-ref HEAD)'
 alias gM='git merge'
 alias ga='git add'
@@ -189,23 +196,22 @@ alias gc!='git commit --amend'
 alias gcn!='git commit -n --amend'
 alias gc='git commit'
 alias gcn='git commit -n'
-alias gcb='git checkout -b'
-alias gcm='git checkout master'
-alias gcd='git checkout dev'
+alias gcb='git switch -b'
+alias gcm='git switch `git_main_branch`'
+alias gcd='git switch dev'
 alias gco='git checkout'
 alias gd='git diff'
 alias gf='git fetch'
 alias gfb='git fetch $(git rev-parse --symbolic-full-name --abbrev-ref @{upstream} | sed "s!/! !")'
 alias gl='git pull'
-alias glo='git checkout master && git pull origin master && git checkout dev && git pull origin dev'
+alias glo='git checkout `git_main_branch` && git pull origin `git_main_branch` && git checkout dev && git pull origin dev'
 alias gm='git merge --no-ff'
-alias gmm='git fetch && git merge --no-ff origin/master'
+alias gmm='git fetch && git merge --no-ff origin/`git_main_branch`'
 alias gp='git push'
 alias gs='git switch'
 alias gst='git status'
 alias tst='tig status'
 alias t='tig'
-gsc(){ git fetch && git switch -c $1 origin/master }
 # }}}
 # Git Flow {{{
 alias gfli='git flow init'
