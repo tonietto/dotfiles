@@ -2,6 +2,7 @@
   "tslint.enable": true,
   "tslint.autoFixOnSave": true,
   "tsserver.npm": "/usr/local/bin/npm",
+  "coc.preferences.formatOnSaveFiletypes": ["js", "ts", "tsx"],
   "explorer.width": 40,
   "explorer.git.enable": true,
   "explorer.file.autoReveal": true,
