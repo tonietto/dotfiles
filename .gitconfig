@@ -14,14 +14,16 @@
 [help]
 	autocorrect = -1
 [alias]
-	st = status
-	co = checkout
-	sc = switch -c
-	pushup = push --set-upstream origin
+	m = merge
 	b = branch
 	c = commit
-	f = fetch
+	st = status
+	sc = switch
+	co = checkout
+	scc = switch -c
+	f = fetch --all -p
 	ready = rebase -i @{u}
+	pushup = push --set-upstream origin
 [commit]
 	gpgsign = true
 [gpg]
