@@ -97,7 +97,20 @@ color   tree.directory         221     default
 
 # copy commit ID to clipboard
 bind generic 9 !@sh -c "echo %(commit) | pbcopy"
+
+# amend commit
 bind generic + !git commit --amend
+
+# amend with --no-verify
 bind generic * !git commit -n
+
+# pull, push and fetch
 bind generic P !git push
 bind generic L !git pull
+bind generic U !git fetch --all -p
+
+# add/edit notes for current commit
+bind generic T !git notes edit %(commit)
+
+# rebase current branch on top of selected branch
+bind generic 3 !git rebase %(branch)
