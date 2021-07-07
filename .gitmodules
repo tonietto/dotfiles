@@ -133,3 +133,6 @@
 [submodule "/Users/gustavotonietto/.vim/pack/plugins/start/github.vim.git"]
 	path = /Users/gustavotonietto/.vim/pack/plugins/start/github.vim.git
 	url = git@github.com:1612492/github.vim.git
+[submodule "/Users/gustavotonietto/.vim/pack/plugins/start/tagalong.vim.git"]
+	path = /Users/gustavotonietto/.vim/pack/plugins/start/tagalong.vim.git
+	url = git@github.com:AndrewRadev/tagalong.vim.git
